@@ -14,7 +14,7 @@ func TestPriorityQueue(t *testing.T) {
 
 	sort.Float64s(elements)
 	for _, e := range elements {
-		item, err := pq.Pop()
+		item, _, err := pq.Pop()
 		if err != nil {
 			t.Fatalf(err.Error())
 		}
@@ -32,7 +32,7 @@ func TestPriorityQueueUpdate(t *testing.T) {
 	pq.Insert("bar", 4)
 	pq.UpdatePriority("bar", 2)
 
-	item, err := pq.Pop()
+	item, _, err := pq.Pop()
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -65,7 +65,7 @@ func TestDoubleAddition(t *testing.T) {
 		t.Fatal("queue should ignore inserting the same element twice")
 	}
 
-	item, _ := pq.Pop()
+	item, _, _ := pq.Pop()
 	if item.(string) != "foo" {
 		t.Fatal("queue should ignore duplicate insert, not update existing item")
 	}
@@ -73,7 +73,7 @@ func TestDoubleAddition(t *testing.T) {
 
 func TestPopEmptyQueue(t *testing.T) {
 	pq := New()
-	_, err := pq.Pop()
+	_, _, err := pq.Pop()
 	if err == nil {
 		t.Fatal("should produce error when performing pop on empty queue")
 	}
@@ -89,7 +89,7 @@ func TestUpdateNonExistingItem(t *testing.T) {
 		t.Fatal("update should not add items")
 	}
 
-	item, _ := pq.Pop()
+	item, _, _ := pq.Pop()
 	if item.(string) != "foo" {
 		t.Fatalf("update should not overwrite item, expected \"foo\", got \"%v\"", item.(string))
 	}

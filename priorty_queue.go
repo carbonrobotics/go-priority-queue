@@ -49,7 +49,7 @@ func (p *PriorityQueue) Insert(v interface{}, priority float64) {
 // In case of an empty queue, an error is returned.
 func (p *PriorityQueue) Pop() (interface{}, float64, error) {
 	if len(*p.itemHeap) == 0 {
-		return nil, errors.New("empty queue")
+		return nil, 0, errors.New("empty queue")
 	}
 
 	item := heap.Pop(p.itemHeap).(*item)
